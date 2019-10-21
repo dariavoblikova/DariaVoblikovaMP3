@@ -42,20 +42,20 @@ public partial class TheWorld : MonoBehaviour
 
         LeftLineEndPoint.transform.up = Vn;
         RightLineEndPoint.transform.up = VnRight;
-        LineSegment.transform.up = LeftLineEndPoint.transform.up;
+        //LineSegment.transform.up = LeftLineEndPoint.transform.up;
 
 
         mDir = RightLineEndPoint.transform.localPosition - LeftLineEndPoint.transform.localPosition;
         lineSegmentLength = mDir.magnitude;
         mDir.Normalize();
 
-        
+        LineSegment.transform.localRotation = Quaternion.FromToRotation(Vector3.up, mDir);
         LineSegment.transform.localScale = new Vector3(0.1f, lineSegmentLength / 2, 0.1f);
 
         LineSegment.transform.localPosition = LeftLineEndPoint.transform.localPosition + lineSegmentLength * 0.5f * mDir;
 
         Debug.DrawLine(LeftLineEndPoint.transform.localPosition, RightLineEndPoint.transform.localPosition, Color.black);
-
+        
     }
 
     public GameObject SelectObject(GameObject obj)
