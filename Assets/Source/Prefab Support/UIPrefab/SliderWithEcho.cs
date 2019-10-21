@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SliderWithEcho : MonoBehaviour
-{
+public class SliderWithEcho : MonoBehaviour {
 
     public Slider TheSlider = null;
     public Text TheEcho = null;
@@ -14,9 +13,8 @@ public class SliderWithEcho : MonoBehaviour
     private SliderCallbackDelegate mCallBack = null;           // private instance of the data type
 
 
-    // Use this for initialization
-    void Start()
-    {
+	// Use this for initialization
+	void Start () {
         Debug.Assert(TheSlider != null);
         Debug.Assert(TheEcho != null);
         Debug.Assert(TheLabel != null);
@@ -28,9 +26,9 @@ public class SliderWithEcho : MonoBehaviour
     {
         mCallBack = listener;
     }
-
+	
     // GUI element changes the object
-    void SliderValueChange(float v)
+	void SliderValueChange(float v)
     {
         TheEcho.text = v.ToString("0.0000");
         // Debug.Log("SliderValueChange: " + v);
