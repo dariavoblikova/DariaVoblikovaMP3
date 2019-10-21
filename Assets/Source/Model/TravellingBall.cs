@@ -4,21 +4,40 @@ using UnityEngine;
 
 public class TravellingBall : MonoBehaviour
 {
-    float t = 120;
+    //float t = 120;
     float D = 0;
-    Vector3 velocity = Vector3.zero;
+    //Vector3 velocity = Vector3.zero;
     public GameObject LeftLineEndPoint, RightLineEndPoint;
 
-    public SliderWithEcho mTimeSlider;
+    float mSpeed = 15;
+    float mInterval = 1;
+    float mAliveSec = 10;
+    Vector3 mDir;
+    
+    Color blueColor = new Color32(39,79,149,1);
+    
+
+    public SliderWithEcho mSpeedSlider;
+    public SliderWithEcho mIntervalSlider;
+    public SliderWithEcho mLifeSpanSlider;
 
     // Start is called before the first frame update
     void Start()
     {
-        GetComponent<Renderer>().material.color = Color.blue;
+        //GetComponent<Renderer>().material.color = Color.blue;
+        GetComponent<Renderer>().material.color = blueColor;
+     
+        mSpeedSlider.InitSliderRange(0.5f, 15, 15);
+        mSpeedSlider.SetSliderLabel("Speed");
+        mSpeedSlider.SetSliderListener(SetNewSpeed);
 
-        mTimeSlider.InitSliderRange(1, 600, 120);
-        mTimeSlider.SetSliderLabel("Time");
-        mTimeSlider.SetSliderListener(SetNewTime);
+        mIntervalSlider.InitSliderRange(0.5f, 4, 1);
+        mIntervalSlider.SetSliderLabel("Interval");
+        mIntervalSlider.SetSliderListener(SetNewInterval);
+
+        mLifeSpanSlider.InitSliderRange(1, 15, 10);
+        mLifeSpanSlider.SetSliderLabel("Alive Sec");
+        mLifeSpanSlider.SetSliderListener(SetNewAliveSec);
     }
 
     // Update is called once per frame
@@ -28,13 +47,18 @@ public class TravellingBall : MonoBehaviour
         ComputeVelocity();
 
         // regular update
-        transform.localPosition += (D / t) * velocity;
+        //transform.localPosition += (D / t) * velocity;
+        transform.localPosition += mDir * mSpeed * Time.deltaTime;
     }
     private void ComputeVelocity()
     {
-        velocity = RightLineEndPoint.transform.localPosition - LeftLineEndPoint.transform.localPosition;
-        D = velocity.magnitude;
-        velocity.Normalize();
+        //velocity = RightLineEndPoint.transform.localPosition - LeftLineEndPoint.transform.localPosition;
+        //D = velocity.magnitude;
+        //velocity.Normalize();
+
+        mDir = RightLineEndPoint.transform.localPosition - LeftLineEndPoint.transform.localPosition;
+        D = mDir.magnitude;
+        mDir.Normalize();
     }
 
     private void CheckForReset()
@@ -46,8 +70,18 @@ public class TravellingBall : MonoBehaviour
             transform.localPosition = LeftLineEndPoint.transform.localPosition;
     }
 
-    private void SetNewTime(float nt)
+    private void SetNewSpeed(float ns)
     {
-        t = nt;
+        mSpeed = ns;
+    }
+
+    private void SetNewInterval(float ni)
+    {
+        mInterval = ni;
+    }
+
+    private void SetNewAliveSec(float na)
+    {
+        mAliveSec = na;
     }
 }

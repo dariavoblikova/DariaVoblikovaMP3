@@ -8,7 +8,9 @@ public partial class MainController : MonoBehaviour
     public Camera MainCamera = null;
     public XfromControl mXform = null;
     public TheWorld mModel = null;
-    public SliderWithEcho mTimeSlider = null; //maybe not
+    public SliderWithEcho mSpeedSlider = null; //maybe not
+    public SliderWithEcho mIntervalSlider = null;
+    public SliderWithEcho mLifeSpanSlider = null;
 
 
     // Use this for initialization
@@ -17,7 +19,9 @@ public partial class MainController : MonoBehaviour
         Debug.Assert(MainCamera != null);
         Debug.Assert(mXform != null);
         Debug.Assert(mModel != null);
-        Debug.Assert(mTimeSlider != null);
+        Debug.Assert(mSpeedSlider != null);
+        Debug.Assert(mIntervalSlider != null);
+        Debug.Assert(mLifeSpanSlider != null);
     }
 
     // Update is called once per frame
