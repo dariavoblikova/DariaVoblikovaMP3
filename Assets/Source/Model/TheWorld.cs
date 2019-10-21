@@ -9,7 +9,7 @@ public partial class TheWorld : MonoBehaviour
     //LeftLineEndPt mSelected = null;
     public GameObject LeftPlane, RightPlane = null;
     public GameObject LeftLineEndPoint, RightLineEndPoint = null;
-    Vector3 Vn, VnRight;
+    Vector3 Vn, VnRight, VnBarrier, VnNormalBarrier;
     public GameObject LineSegment = null;
 
     private Color kSelectedColor = new Color(0.8f, 0.8f, 0.1f, 0.5f);
@@ -23,12 +23,21 @@ public partial class TheWorld : MonoBehaviour
 
     float D;
 
+    public GameObject mTheBarrier;
+    public GameObject MySphere;
+    public GameObject MyNormal = null;
+
     void Start()
     {
         //LeftLineEndPoint.transform.localPosition = LeftPlane.transform.localPosition;
         LeftLineEndPoint.transform.localPosition = new Vector3(LeftPlane.transform.localPosition.x, 5, 16);
         RightLineEndPoint.transform.localPosition = new Vector3(RightPlane.transform.localPosition.x, 3, 9);
 
+        mTheBarrier.GetComponent<Renderer>().shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
+        MySphere.GetComponent<Renderer>().shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
+        RightLineEndPoint.GetComponent<Renderer>().shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
+        LeftLineEndPoint.GetComponent<Renderer>().shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
+        MyNormal.GetComponent<Renderer>().shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
 
     }
 
@@ -51,22 +60,24 @@ public partial class TheWorld : MonoBehaviour
 
         LineSegment.transform.localRotation = Quaternion.FromToRotation(Vector3.up, mDir);
         LineSegment.transform.localScale = new Vector3(0.1f, lineSegmentLength / 2, 0.1f);
-
         LineSegment.transform.localPosition = LeftLineEndPoint.transform.localPosition + lineSegmentLength * 0.5f * mDir;
 
-        Debug.DrawLine(LeftLineEndPoint.transform.localPosition, RightLineEndPoint.transform.localPosition, Color.black);
+        //Debug.DrawLine(LeftLineEndPoint.transform.localPosition, RightLineEndPoint.transform.localPosition, Color.black);
+
+
+        MySphere.transform.localScale = new Vector3(mTheBarrier.transform.localScale.x, mTheBarrier.transform.localScale.y, 0.1f);
+        VnBarrier = mTheBarrier.transform.up;
+        MySphere.transform.localPosition = mTheBarrier.transform.localPosition + 0.05f * VnBarrier;
+        MySphere.transform.localRotation = mTheBarrier.transform.localRotation;
         
-    }
 
-    public GameObject SelectObject(GameObject obj)
-    {
-        if ((obj != null) && (obj.name == "CreationPlane"))
-        {
-            obj = null;
-        }
+        
 
-        SetObjectSelection(obj);
-        return mSelected;
+        VnNormalBarrier = -mTheBarrier.transform.forward;
+        MyNormal.transform.localRotation = Quaternion.FromToRotation(Vector3.up, VnNormalBarrier);
+        MyNormal.transform.localScale = new Vector3(0.1f, 2.5f, 0.1f);
+        MyNormal.transform.localPosition = mTheBarrier.transform.localPosition + 5 * 0.5f * VnNormalBarrier;
+
     }
 
     public void MoveObject(GameObject obj, Vector3 pos)
@@ -94,35 +105,5 @@ public partial class TheWorld : MonoBehaviour
 
     }
 
-    private void SetObjectLocation(Vector3 pos)
-    {
-        Vector3 delta = mSelected.transform.position - pos;
-        //delta.y = 0f; // let's not allow vertical component
-        distance = delta.magnitude;
-        if (distance < 0.001f)
-            return;
-        delta.Normalize();
 
-    }
-
-    private void SetObjectSelection(GameObject g)
-    {
-        if (mSelected != null)
-            mSelected.GetComponent<Renderer>().material.color = mOrgObjColor;
-
-        mSelected = g;
-        if (mSelected != null)
-        {
-            mOrgObjColor = g.GetComponent<Renderer>().material.color; // save a copy
-            mSelected.GetComponent<Renderer>().material.color = kSelectedColor;
-        }
-    }
-
-    private void UnSelectCurrent()
-    {
-        if (mSelected != null)
-        {
-            mSelected = null;
-        }
-    }
 }

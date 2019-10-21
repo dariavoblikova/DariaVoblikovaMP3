@@ -32,8 +32,8 @@ public partial class MainController : MonoBehaviour
 
     private void SelectObject(GameObject g) //delete redundant because don't need to update xForm
     {
-        GameObject a = mModel.SelectObject(g);
-        mXform.SetSelectedObject(a);
+        //GameObject a = mModel.SelectObject(g);
+        //mXform.SetSelectedObject(a);
     }
 
 }

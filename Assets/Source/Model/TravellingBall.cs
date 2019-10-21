@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class TravellingBall : MonoBehaviour
 {
-    //float t = 120;
     float D = 0;
     //Vector3 velocity = Vector3.zero;
     public GameObject LeftLineEndPoint, RightLineEndPoint;
@@ -12,7 +11,8 @@ public class TravellingBall : MonoBehaviour
     float mSpeed = 15;
     float mInterval = 1;
     float mAliveSec = 10;
-    Vector3 mDir;
+    float mTimeAlive;
+    Vector3 mDir = Vector3.zero;
     
     Color blueColor = new Color32(39,79,149,1);
     
@@ -45,17 +45,16 @@ public class TravellingBall : MonoBehaviour
     {
         CheckForReset();
         ComputeVelocity();
-
-        // regular update
-        //transform.localPosition += (D / t) * velocity;
+        
         transform.localPosition += mDir * mSpeed * Time.deltaTime;
+
+        mTimeAlive += Time.deltaTime;
+        if (mTimeAlive > mAliveSec)
+            Destroy(transform.gameObject);
+
     }
     private void ComputeVelocity()
     {
-        //velocity = RightLineEndPoint.transform.localPosition - LeftLineEndPoint.transform.localPosition;
-        //D = velocity.magnitude;
-        //velocity.Normalize();
-
         mDir = RightLineEndPoint.transform.localPosition - LeftLineEndPoint.transform.localPosition;
         D = mDir.magnitude;
         mDir.Normalize();
