@@ -4,83 +4,48 @@ using UnityEngine;
 
 public class TravellingBall : MonoBehaviour
 {
-    float D = 0;
-    //Vector3 velocity = Vector3.zero;
-    public GameObject LeftLineEndPoint, RightLineEndPoint;
+    float timeAlive;
+    public float speed;
+    public Vector3 dir;
+    float d;
+    public float aliveSec;
 
-    float mSpeed = 15;
-    float mInterval = 1;
-    float mAliveSec = 10;
-    float mTimeAlive;
-    Vector3 mDir = Vector3.zero;
-    
-    Color blueColor = new Color32(39,79,149,1);
-    
 
-    public SliderWithEcho mSpeedSlider;
-    public SliderWithEcho mIntervalSlider;
-    public SliderWithEcho mLifeSpanSlider;
+    Color blueColor = new Color32(39, 79, 149, 1);
 
-    // Start is called before the first frame update
     void Start()
     {
-        //GetComponent<Renderer>().material.color = Color.blue;
         GetComponent<Renderer>().material.color = blueColor;
-     
-        mSpeedSlider.InitSliderRange(0.5f, 15, 15);
-        mSpeedSlider.SetSliderLabel("Speed");
-        mSpeedSlider.SetSliderListener(SetNewSpeed);
 
-        mIntervalSlider.InitSliderRange(0.5f, 4, 1);
-        mIntervalSlider.SetSliderLabel("Interval");
-        mIntervalSlider.SetSliderListener(SetNewInterval);
-
-        mLifeSpanSlider.InitSliderRange(1, 15, 10);
-        mLifeSpanSlider.SetSliderLabel("Alive Sec");
-        mLifeSpanSlider.SetSliderListener(SetNewAliveSec);
     }
 
-    // Update is called once per frame
     void Update()
     {
-        CheckForReset();
-        ComputeVelocity();
-        
-        transform.localPosition += mDir * mSpeed * Time.deltaTime;
+        transform.localPosition += dir * speed * Time.deltaTime;
 
-        mTimeAlive += Time.deltaTime;
-        if (mTimeAlive > mAliveSec)
+        timeAlive += Time.deltaTime;
+        if (timeAlive > aliveSec)
             Destroy(transform.gameObject);
 
     }
-    private void ComputeVelocity()
+    public void ComputeVelocity(Vector3 right, Vector3 left)
     {
-        mDir = RightLineEndPoint.transform.localPosition - LeftLineEndPoint.transform.localPosition;
-        D = mDir.magnitude;
-        mDir.Normalize();
+        dir = right - left;
+        d = dir.magnitude;
+        dir.Normalize();
     }
 
-    private void CheckForReset()
+    public void ComputeSpeed(float speedL)
     {
-        // check to see if we should reset position
-        Vector3 v = transform.localPosition - LeftLineEndPoint.transform.localPosition;
+        speed = speedL;
 
-        if (v.magnitude > D)
-            transform.localPosition = LeftLineEndPoint.transform.localPosition;
     }
 
-    private void SetNewSpeed(float ns)
+    public void ComputeAliveSec(float aliveL)
     {
-        mSpeed = ns;
+        aliveSec = aliveL;
+
     }
 
-    private void SetNewInterval(float ni)
-    {
-        mInterval = ni;
-    }
 
-    private void SetNewAliveSec(float na)
-    {
-        mAliveSec = na;
-    }
 }
