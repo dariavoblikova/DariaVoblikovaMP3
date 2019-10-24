@@ -81,7 +81,8 @@ public partial class TheWorld : MonoBehaviour
         //Debug.DrawLine(LeftLineEndPoint.transform.localPosition, RightLineEndPoint.transform.localPosition, Color.black);
 
 
-        MySphere.transform.localScale = new Vector3(mTheBarrier.transform.localScale.x, mTheBarrier.transform.localScale.y, 0.1f);
+        //MySphere.transform.localScale = new Vector3(mTheBarrier.transform.localScale.x, mTheBarrier.transform.localScale.y, 0.1f);
+        MySphere.transform.localScale = new Vector3(mTheBarrier.transform.localScale.x, mTheBarrier.transform.localScale.y, (mTheBarrier.transform.localScale.z)/10);//instead of above to check scale
         VnBarrier = mTheBarrier.transform.up;
         MySphere.transform.localPosition = mTheBarrier.transform.localPosition + 0.05f * VnBarrier;
         MySphere.transform.localRotation = mTheBarrier.transform.localRotation;
@@ -90,6 +91,7 @@ public partial class TheWorld : MonoBehaviour
         
 
         VnNormalBarrier = -mTheBarrier.transform.forward;
+        //VnNormalBarrier.Normalize();//new
         MyNormal.transform.localRotation = Quaternion.FromToRotation(Vector3.up, VnNormalBarrier);
         MyNormal.transform.localScale = new Vector3(0.1f, 2.5f, 0.1f);
         MyNormal.transform.localPosition = mTheBarrier.transform.localPosition + 5 * 0.5f * VnNormalBarrier;
