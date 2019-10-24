@@ -25,6 +25,8 @@ public partial class TheWorld : MonoBehaviour
     public GameObject MySphere;
     public GameObject MyNormal = null;
 
+    private GameObject mSelected = null;
+
     void Start()
     {
         //LeftLineEndPoint.transform.localPosition = LeftPlane.transform.localPosition;
@@ -127,6 +129,23 @@ public partial class TheWorld : MonoBehaviour
         }
 
 
+    }
+
+
+
+    public GameObject SelectObject(GameObject obj)
+    {
+        if ((obj != null) && (obj.name == "TheBarrier"))
+        {
+            SetObjectSelection(obj);
+        }
+        return mSelected;
+
+    }
+
+    private void SetObjectSelection(GameObject g)
+    {
+        mSelected = g;
     }
 
 

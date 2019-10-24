@@ -31,7 +31,8 @@ public partial class TheWorld : MonoBehaviour
         g.transform.localScale = new Vector3(1, 1, 1);
         g.transform.localPosition = pos;
         mSelectedSphere = g.AddComponent<TravellingBall>();
-        
+        mSelectedSphere.GetComponent<Renderer>().shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
+
         Debug.Assert(mSelectedSphere != null);
         
         mSelectedSphere.ComputeSpeed(mSpeed);

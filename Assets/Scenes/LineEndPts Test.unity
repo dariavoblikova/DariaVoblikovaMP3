@@ -775,6 +775,7 @@ MonoBehaviour:
   LeftLineEndPoint: {fileID: 1649993318}
   RightLineEndPoint: {fileID: 645610660}
   LineSegment: {fileID: 1852427749}
+  mDir: {x: 0, y: 0, z: 0}
   mTheBarrier: {fileID: 266490128}
   MySphere: {fileID: 770869993}
   MyNormal: {fileID: 899055}
@@ -2161,8 +2162,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TheSlider: {fileID: 958962840}
-  TheEcho: {fileID: 763544221}
-  TheLabel: {fileID: 96776987}
+  TheEcho: {fileID: 96776987}
+  TheLabel: {fileID: 763544221}
 --- !u!224 &2009480881 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 224925585032533742, guid: 0063ea66f79c76c4190ea329cb8d79f0,
