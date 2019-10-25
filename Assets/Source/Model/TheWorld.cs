@@ -27,6 +27,12 @@ public partial class TheWorld : MonoBehaviour
 
     private GameObject mSelected = null;
 
+
+
+    public Vector3 n;
+    public Vector3 center;
+    float d;
+
     void Start()
     {
         //LeftLineEndPoint.transform.localPosition = LeftPlane.transform.localPosition;
@@ -53,7 +59,8 @@ public partial class TheWorld : MonoBehaviour
         mLifeSpanSlider.SetSliderLabel("Alive Sec");
         mLifeSpanSlider.SetSliderListener(SetNewAliveSec);
 
-        //CreateFirstBall();
+        //mTheBarrier.transform.forward = -mTheBarrier.transform.forward;
+       // MySphere.transform.forward = -MySphere.transform.forward;
 
     }
 
@@ -86,7 +93,7 @@ public partial class TheWorld : MonoBehaviour
         VnBarrier = mTheBarrier.transform.up;
         MySphere.transform.localPosition = mTheBarrier.transform.localPosition + 0.05f * VnBarrier;
         MySphere.transform.localRotation = mTheBarrier.transform.localRotation;
-        
+
 
         
 
@@ -106,6 +113,7 @@ public partial class TheWorld : MonoBehaviour
             CreateBall(LeftLineEndPoint.transform.localPosition);
             mTimeSinceLastBall = 0;
         }
+
 
     }
 

@@ -21,6 +21,7 @@ public partial class TheWorld : MonoBehaviour
 
 
     TravellingBall mSelectedSphere = null;
+    //GameObject Projected;
 
 
     public void CreateBall(Vector3 pos)
@@ -38,6 +39,14 @@ public partial class TheWorld : MonoBehaviour
         mSelectedSphere.ComputeSpeed(mSpeed);
         mSelectedSphere.ComputeVelocity(RightLineEndPoint.transform.localPosition, LeftLineEndPoint.transform.localPosition);
         mSelectedSphere.ComputeAliveSec(mAliveSec);
+
+        //Debug.Log("selected sphere: " + mSelectedSphere);
+
+
+
+        //mSelectedSphere.Compute_n(n);
+        //mSelectedSphere.Compute_center(center);
+
 
     }
 

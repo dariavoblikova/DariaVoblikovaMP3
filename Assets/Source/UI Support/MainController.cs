@@ -22,13 +22,15 @@ public partial class MainController : MonoBehaviour
         Debug.Assert(mSpeedSlider != null);
         Debug.Assert(mIntervalSlider != null);
         Debug.Assert(mLifeSpanSlider != null);
+
+        SelectObject(mModel.mTheBarrier);
     }
 
     // Update is called once per frame
     void Update()
     {
         LMBSelect();
-        SelectObject(mModel.mTheBarrier);
+        
     }
 
     private void SelectObject(GameObject g) //delete redundant because don't need to update xForm
