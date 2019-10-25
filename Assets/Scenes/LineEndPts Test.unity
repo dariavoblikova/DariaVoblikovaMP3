@@ -779,6 +779,8 @@ MonoBehaviour:
   mTheBarrier: {fileID: 266490128}
   MySphere: {fileID: 770869993}
   MyNormal: {fileID: 899055}
+  n: {x: 0, y: 0, z: 0}
+  center: {x: 0, y: 0, z: 0}
   mSpeed: 15
   mAliveSec: 10
   mSpeedSlider: {fileID: 609589762}
@@ -1183,7 +1185,7 @@ GameObject:
   - component: {fileID: 770869995}
   - component: {fileID: 770869994}
   m_Layer: 0
-  m_Name: Sphere
+  m_Name: TheSphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
