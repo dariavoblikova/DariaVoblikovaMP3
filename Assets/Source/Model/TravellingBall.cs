@@ -25,6 +25,14 @@ public class TravellingBall : MonoBehaviour
     Vector3 ballAndBarrier;
     float ballAndBarrierDistance;
 
+    Vector3 R, Opposite, ballAndShadow;
+    float checkBehindMovingAway;
+    public float checkFront2;
+    Vector3 shadowAndBarrier;
+    float shadowAndBarrierDistance;
+
+    Vector3 iDir;
+
     void Start()
     {
 
@@ -38,6 +46,7 @@ public class TravellingBall : MonoBehaviour
         Projected.GetComponent<Renderer>().material.color = Color.black;
         Projected.transform.localScale = new Vector3(Projected.transform.localScale.x, Projected.transform.localScale.y, (Sphere.transform.localScale.z) / 10);
         Projected.GetComponent<Renderer>().shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
+        Projected.SetActive(false);
 
 
     }
@@ -58,30 +67,37 @@ public class TravellingBall : MonoBehaviour
         float h = Vector3.Dot(transform.localPosition, n) - myd;
 
 
-        ballAndBarrier = Projected.transform.localPosition - center;
+        shadowAndBarrier = Projected.transform.localPosition - center;
+        shadowAndBarrierDistance = shadowAndBarrier.magnitude;
+        //shadowAndBarrier.Normalize();
+
+        ballAndBarrier = transform.localPosition - center;
         ballAndBarrierDistance = ballAndBarrier.magnitude;
-        //ballAndBarrier.Normalize();
+        ballAndBarrier.Normalize();
 
 
 
         Projected.transform.localPosition = transform.localPosition - (n * h);
         Projected.transform.localPosition = Projected.transform.localPosition + 0.1f * n;
+        Projected.SetActive(true);
 
         Debug.DrawLine(Projected.transform.localPosition, transform.localPosition, Color.black);
         n.Normalize();
         checkFront = Vector3.Dot(ballAndBarrier, n);
+        checkFront2 = Vector3.Dot(ballAndBarrier, n);
 
         timeAlive += Time.deltaTime;
         if (timeAlive > aliveSec)
         {
-            Destroy(transform.gameObject);
             Destroy(Projected.transform.gameObject);
+            Destroy(transform.gameObject);
+            
         }
 
         float radius = (Sphere.transform.localScale.y)/ 2;
 
         Projected.SetActive(true);
-        if (ballAndBarrierDistance > radius)
+        if (shadowAndBarrierDistance > radius)
         {
             Projected.SetActive(false);
             //Projected.GetComponent<Renderer>().enabled = false;
@@ -93,8 +109,12 @@ public class TravellingBall : MonoBehaviour
             //Projected.GetComponent<Renderer>().enabled = false;
         }
 
-        //if (transform.localPosition == RightPoint.transform.localPosition)
-        //Destroy(Projected.transform.gameObject);
+
+        if (Vector3.Dot(dir, n) < 0 && checkFront <= 0)
+        {
+            R = dir - (2 * Vector3.Dot(dir, n)) * n;
+            dir = R;
+        }
 
 
     }

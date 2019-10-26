@@ -35,7 +35,6 @@ public partial class TheWorld : MonoBehaviour
 
     void Start()
     {
-        //LeftLineEndPoint.transform.localPosition = LeftPlane.transform.localPosition;
         LeftLineEndPoint.transform.localPosition = new Vector3(LeftPlane.transform.localPosition.x, 5, 16);
         RightLineEndPoint.transform.localPosition = new Vector3(RightPlane.transform.localPosition.x, 3, 9);
 
@@ -58,9 +57,6 @@ public partial class TheWorld : MonoBehaviour
         mLifeSpanSlider.InitSliderRange(1, 15, 10);
         mLifeSpanSlider.SetSliderLabel("Alive Sec");
         mLifeSpanSlider.SetSliderListener(SetNewAliveSec);
-
-        //mTheBarrier.transform.forward = -mTheBarrier.transform.forward;
-       // MySphere.transform.forward = -MySphere.transform.forward;
 
     }
 

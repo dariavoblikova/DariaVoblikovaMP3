@@ -25,9 +25,7 @@ public partial class TheWorld : MonoBehaviour
 
 
     public void CreateBall(Vector3 pos)
-    {
-        //GameObject g = Instantiate(Resources.Load("TravellingBallPrefab")) as GameObject;
-        
+    {   
         GameObject g = GameObject.CreatePrimitive(PrimitiveType.Sphere);
         g.transform.localScale = new Vector3(1, 1, 1);
         g.transform.localPosition = pos;
@@ -39,14 +37,6 @@ public partial class TheWorld : MonoBehaviour
         mSelectedSphere.ComputeSpeed(mSpeed);
         mSelectedSphere.ComputeVelocity(RightLineEndPoint.transform.localPosition, LeftLineEndPoint.transform.localPosition);
         mSelectedSphere.ComputeAliveSec(mAliveSec);
-
-        //Debug.Log("selected sphere: " + mSelectedSphere);
-
-
-
-        //mSelectedSphere.Compute_n(n);
-        //mSelectedSphere.Compute_center(center);
-
 
     }
 
